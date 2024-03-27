@@ -1,12 +1,15 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const { connectDb } = require('./config/connectDB');
-const { accountRouter } = require('./router/account')
+const { connectDb } = require('./src/config/connectDB');
+const { accountRouter } = require('./src/router/account')
 require('dotenv').config();
 let app = express()
 
-app.use(cors({ origin: true }))
+app.use(cors({
+  origin: true,
+  methods: ["POST", 'GET', 'PUT', "DELETE"]
+}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
