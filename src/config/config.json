@@ -1,23 +1,31 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "123456",
-    "database": "postgres",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "chatdemo_user",
+    "password": "ZSoNlfcMpcW2V9YiayFfryFRDjmmkoQx",
+    "database": "chatdemo",
+    "host": "dpg-co21e3gl6cac73d38020-a.singapore-postgres.render.com",
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
-  "test": {
-    "username": "postgres",
-    "password": "123456",
-    "database": "postgres",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
+
   "production": {
-    "username": "postgres",
-    "password": "123456",
-    "database": "postgres",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "chatdemo_user",
+    "password": "ZSoNlfcMpcW2V9YiayFfryFRDjmmkoQx",
+    "database": "chatdemo",
+    "host": "dpg-co21e3gl6cac73d38020-a.singapore-postgres.render.com",
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
