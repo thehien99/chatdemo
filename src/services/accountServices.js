@@ -25,14 +25,11 @@ const register = ({ name, password, avatar }) => {
         { expiresIn: '1d' }
       );
       resolve({
-        status: 1,
-        token: token
+        status: token ? 1 : 2,
+        msg: token ? 'Register Successly' : 'Name has been already used !!!'
       })
     } catch (error) {
-      reject({
-        status: 0,
-        msg: error
-      })
+      reject(error)
     }
   })
 }
