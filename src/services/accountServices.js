@@ -7,32 +7,36 @@ require('dotenv').config()
 
 const hashpassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
 
-const register = ({ name, password, avatar }) => {
-  return new Promise(async (resolve, reject) => {
+const register = ({ password, name }) =>
+  new Promise(async (resolve, reject) => {
     try {
       const response = await db.Account.findOrCreate({
-        where: { name: name },
-        raw: false,
+        where: { name },
         defaults: {
+          name,
           password: hashpassword(password),
           id: v4(),
-          avatar: avatar
-        }
+        },
       });
-      const token = response && jwt.sign(
-        { id: response.id, name: response.name },
-        process.env.ACCESS_TOKKEN_SECRET,
-        { expiresIn: '1d' }
-      );
+      const token =
+        response[1] &&
+        jwt.sign(
+          { id: response[0].id, name: response[0].name },
+          process.env.ACCESS_TOKKEN_SECRET,
+          { expiresIn: "1d" }
+        );
       resolve({
-        status: token ? 1 : 2,
-        msg: token ? 'Register Successly' : 'Name has been already used !!!'
-      })
+        err: token ? 1 : 2,
+        msg: token
+          ? "Register is successfully !"
+          : "Name has been aldready used !",
+        token: token || null,
+      });
     } catch (error) {
-      reject(error)
+      reject(error);
     }
-  })
-}
+  });
+
 
 const login = ({ name, password }) => {
   return new Promise(async (resolve, reject) => {
