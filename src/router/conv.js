@@ -8,6 +8,8 @@ let convRouter = (app) => {
 
   router.post('/api/message', convController.newMessage)
   router.get('/api/getConvId', convController.getMessId)
+
+  router.get('/api/getUserId', convController.getUserId)
   return app.use('/', router)
 }
 module.exports = {

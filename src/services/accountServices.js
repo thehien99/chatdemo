@@ -44,8 +44,10 @@ const login = ({ name, password }) => {
     try {
       const response = await db.Account.findOne({
         where: { name },
-        raw: true
+        raw: true,
+        attributes: ['id', 'name', 'password']
       })
+      console.log(response);
       const passwordHash = response && bcrypt.compareSync(password, response.password)
       const token = passwordHash && jwt.sign(
         { id: response.id, name: response.name },
@@ -58,7 +60,7 @@ const login = ({ name, password }) => {
         token: token || null
       })
     } catch (error) {
-      register({
+      reject({
         status: 0,
         msg: `Login failed ${error}`
       })
