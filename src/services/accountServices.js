@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const db = require('../models/index')
 const jwt = require('jsonwebtoken')
 const { v4 } = require('uuid')
+const account = require('../models/account')
 
 require('dotenv').config()
 
@@ -15,7 +16,7 @@ const register = ({ password, name }) =>
         defaults: {
           name,
           password: hashpassword(password),
-          id: v4(),
+          id: v4()
         },
       });
       const token =

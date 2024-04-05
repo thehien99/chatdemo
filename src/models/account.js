@@ -10,13 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Account.hasMany(models.Messenger, { foreignKey: 'senderId', as: 'Accounts' })
     }
   }
   Account.init({
     name: DataTypes.STRING,
     password: DataTypes.STRING,
-    fbUrl: DataTypes.STRING,
     avatar: DataTypes.STRING,
   }, {
     sequelize,
