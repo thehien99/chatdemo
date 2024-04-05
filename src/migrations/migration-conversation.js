@@ -7,11 +7,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING
       },
-      senderId: {
-        type: Sequelize.STRING
-      },
-      receiverId: {
-        type: Sequelize.STRING
+      members: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,

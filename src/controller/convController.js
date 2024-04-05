@@ -11,9 +11,9 @@ const convMessenger = async (req, res) => {
 }
 
 const getUserIdConv = async (req, res) => {
-  const senderId = req.query.senderId
+  const userId = req.query.userId
   try {
-    const response = await convServices.getUserId(senderId)
+    const response = await convServices.getUserId(userId)
     return res.status(200).json(response)
   } catch (error) {
     console.log(error)
@@ -21,7 +21,7 @@ const getUserIdConv = async (req, res) => {
 }
 
 const newMessage = async (req, res) => {
-  const { conversationId, senderId, messageText, receiverId } = req.body
+  const { conversationId, senderId, messageText } = req.body
   try {
     const response = await convServices.newMessages(req.body)
     return res.status(200).json(response)

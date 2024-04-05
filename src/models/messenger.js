@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   Messenger.init({
     conversationId: DataTypes.STRING,
     senderId: DataTypes.STRING,
-    receiverId: DataTypes.STRING,
     messageText: DataTypes.TEXT,
     sentDatetime: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   },

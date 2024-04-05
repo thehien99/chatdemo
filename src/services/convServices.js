@@ -1,13 +1,13 @@
 const db = require("../models")
 const { v4 } = require('uuid')
+const { Op } = require('sequelize');
 
 const newConversation = ({ senderId, receiverId }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const newConversation = await db.Conversation.findOrCreate({
         where: {
-          senderId: senderId,
-          receiverId: receiverId
+          members: [senderId, receiverId]
         },
         defaults: {
           id: v4(),
@@ -30,11 +30,10 @@ const getUserId = (userId) => {
     try {
       const response = await db.Conversation.findAll({
         where: {
-          senderId: userId,
+          members: { [Op.contains]: [userId] },
         },
         raw: true,
         nest: true,
-        attributes: ["id", "senderId", "receiverId"]
       })
       resolve(response)
     } catch (error) {
@@ -43,14 +42,13 @@ const getUserId = (userId) => {
   })
 }
 
-const newMessages = ({ conversationId, senderId, messageText, receiverId }) => {
+const newMessages = ({ conversationId, senderId, messageText }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const newMess = await db.Messenger.create({
         id: v4(),
         conversationId,
         senderId,
-        receiverId,
         messageText: JSON.parse(messageText)
       })
       resolve(newMess)

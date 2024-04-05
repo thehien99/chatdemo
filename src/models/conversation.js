@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Conversation.init({
-    senderId: DataTypes.STRING,
-    receiverId: DataTypes.STRING
+    members: DataTypes.ARRAY(DataTypes.STRING)
   },
     {
       sequelize,
