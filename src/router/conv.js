@@ -3,13 +3,23 @@ const verifyToken = require('../middleware/checkMiddleware')
 const convController = require('../controller/convController')
 let router = express.Router()
 let convRouter = (app) => {
+  //create conversation
   router.post('/api/conversation', convController.convMessenger)
+
+  //get conversation
   router.get('/api/conversations', convController.getUserIdConv)
 
-  router.post('/api/message', convController.newMessage)
-  router.get('/api/getConvId', convController.getMessId)
 
+  // create message
+  router.post('/api/message', convController.newMessage)
+
+  //get more conversations of id
+  router.get('/api/message/getConvId', convController.getMessId)
+
+  // get userId
   router.get('/api/getUserId', convController.getUserId)
+
+
   return app.use('/', router)
 }
 module.exports = {

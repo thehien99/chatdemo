@@ -45,7 +45,10 @@ const login = ({ name, password }) => {
       const response = await db.Account.findOne({
         where: { name },
         raw: true,
-        attributes: ['id', 'name', 'password']
+        attributes:
+        {
+          include: ['id', 'name', 'password'],
+        }
       })
       console.log(response);
       const passwordHash = response && bcrypt.compareSync(password, response.password)
@@ -57,7 +60,8 @@ const login = ({ name, password }) => {
       resolve({
         status: token ? 1 : 2,
         msg: token ? 'Login success' : response ? "Password is Wrong !! " : "Name not found !!",
-        token: token || null
+        token: token || null,
+        response: { id: response.id, name: response.name }
       })
     } catch (error) {
       reject({
