@@ -16,9 +16,6 @@ let convRouter = (app) => {
   //get more conversations of id
   router.get('/api/message/getConvId', convController.getMessId)
 
-  // get userId
-  router.get('/api/getUserId', convController.getUserId)
-
 
   return app.use('/', router)
 }

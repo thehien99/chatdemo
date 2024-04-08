@@ -71,7 +71,27 @@ const login = ({ name, password }) => {
     }
   })
 }
+
+const getUserIds = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Account.findOne({
+        where: { id },
+        raw: true,
+        attributes: {
+          exclude: ['password']
+        }
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
 module.exports = {
   register: register,
-  login: login
+  login: login,
+  getUserIds: getUserIds
+
 }

@@ -16,6 +16,12 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING
       },
+      following: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
+      follower: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

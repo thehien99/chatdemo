@@ -31,7 +31,20 @@ const login = async (req, res) => {
     console.log('Login Failed', error)
   }
 }
+
+const getUserId = async (req, res) => {
+  const { id } = req.query
+  try {
+    const response = await accountServices.getUserIds(id)
+    return res.status(200).json(response)
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 module.exports = {
   register: register,
-  login: login
+  login: login,
+  getUserId: getUserId
 }

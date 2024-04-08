@@ -43,15 +43,7 @@ const getMessId = async (req, res) => {
 }
 
 
-const getUserId = async (req, res) => {
-  const { id } = req.query
-  try {
-    const response = await convServices.getUserIds(id)
-    return res.status(200).json(response)
-  } catch (error) {
-    console.log(error);
-  }
-}
+
 
 
 module.exports = {
@@ -59,5 +51,4 @@ module.exports = {
   getUserIdConv: getUserIdConv,
   newMessage: newMessage,
   getMessId: getMessId,
-  getUserId: getUserId
 }
