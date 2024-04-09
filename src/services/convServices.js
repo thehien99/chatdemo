@@ -2,6 +2,8 @@ const db = require("../models")
 const { v4 } = require('uuid')
 const { Op } = require('sequelize');
 
+
+//create conversation
 const newConversation = ({ senderId, receiverId }) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -23,7 +25,7 @@ const newConversation = ({ senderId, receiverId }) => {
   })
 }
 
-
+//get conversation for userId
 const getUserId = (userId) => {
   console.log(userId)
   return new Promise(async (resolve, reject) => {
@@ -42,22 +44,38 @@ const getUserId = (userId) => {
   })
 }
 
-const newMessages = ({ conversationId, senderId, messageText }) => {
+
+//create mess private
+const newMessages = ({ conversationId, senderId, messageText, id }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const newMess = await db.Messenger.create({
-        id: v4(),
-        conversationId,
-        senderId,
-        messageText: JSON.parse(messageText)
+      await db.Messenger.findOrCreate({
+        where: { conversationId },
+        defaults: {
+          id: v4(),
+          conversationId: conversationId,
+          senderId: [senderId],
+          messageText: [JSON.parse(messageText)]
+        }
       })
-      resolve(newMess)
+      await db.Messenger.update({
+        senderId: db.Sequelize.fn('array_append', db.Sequelize.col('senderId'), senderId)
+      }, { where: { conversationId } })
+      await db.Messenger.update({
+        messageText: db.Sequelize.fn('array_append', db.Sequelize.col('messageText'), JSON.parse(messageText))
+      }, { where: { conversationId } })
+      resolve({
+        err: 1,
+        msg: 'Success'
+      })
     } catch (error) {
       reject(error)
     }
   })
 }
 
+
+//get message of user private
 const MessId = (conversationId) => {
   console.log(conversationId)
   return new Promise(async (resolve, reject) => {

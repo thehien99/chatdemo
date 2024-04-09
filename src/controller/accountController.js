@@ -42,9 +42,35 @@ const getUserId = async (req, res) => {
   }
 }
 
+const addFr = async (req, res) => {
+  const { friendId, id } = req.query.friendId
+  try {
+    const response = await accountServices.addFrServices(req.query)
+    return res.status(200).json(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const searchName = async (req, res) => {
+  const { name } = req.query.name
+  try {
+    if (!name) {
+      return res.status(400).json({
+        msg: 'Nếu muốn kiếm hãy nhập ^^'
+      })
+    }
+    const response = await accountServices.searchNameService(req.query.name)
+    return res.status(200).json(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
   register: register,
   login: login,
-  getUserId: getUserId
+  getUserId: getUserId,
+  addFr: addFr,
+  searchName: searchName
 }

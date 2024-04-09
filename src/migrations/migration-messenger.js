@@ -11,10 +11,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       senderId: {
-        type: Sequelize.STRING
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       messageText: {
-        type: Sequelize.TEXT,
+        type: Sequelize.ARRAY(Sequelize.TEXT),
       },
       sentDatetime: {
         type: Sequelize.DATE,

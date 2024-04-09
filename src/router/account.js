@@ -8,6 +8,14 @@ let accountRouter = (app) => {
   // get userId
   router.get('/api/getUserId', accountController.getUserId)
 
+  //addfriend
+  router.put('/api/addfr', accountController.addFr)
+
+  //searchforname
+  router.get('/api/search', accountController.searchName)
+
+
+  //get following and follower
 
   return app.use('/', router)
 }

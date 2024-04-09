@@ -22,7 +22,7 @@ const getUserIdConv = async (req, res) => {
 }
 
 const newMessage = async (req, res) => {
-  const { conversationId, senderId, messageText } = req.body
+  const { conversationId, senderId, messageText, id } = req.body
   try {
     const response = await convServices.newMessages(req.body)
     return res.status(200).json(response)
@@ -41,6 +41,7 @@ const getMessId = async (req, res) => {
     console.log(error)
   }
 }
+
 
 
 

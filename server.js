@@ -1,4 +1,6 @@
+
 const express = require('express')
+const socketIo = require("socket.io")
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const { connectDb } = require('./src/config/connectDB');
@@ -7,7 +9,8 @@ const { convRouter } = require('./src/router/conv');
 
 require('dotenv').config();
 let app = express()
-
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
 app.use(cors({
   origin: true,
 }))

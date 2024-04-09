@@ -6,7 +6,7 @@ let convRouter = (app) => {
   //create conversation
   router.post('/api/conversation', convController.convMessenger)
 
-  //get conversation
+  //get conversation of id
   router.get('/api/conversations', convController.getUserIdConv)
 
 
@@ -16,7 +16,7 @@ let convRouter = (app) => {
   //get more conversations of id
   router.get('/api/message/getConvId', convController.getMessId)
 
-
+  
   return app.use('/', router)
 }
 module.exports = {

@@ -72,6 +72,8 @@ const login = ({ name, password }) => {
   })
 }
 
+
+//get userId
 const getUserIds = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -89,9 +91,47 @@ const getUserIds = (id) => {
   })
 }
 
+// addfriend
+const addFrServices = ({ friendId, id }) => {
+  console.log({ friendId, id })
+  return new Promise(async (resolve, reject) => {
+    try {
+      await db.Account.update(
+        { follower: db.Sequelize.fn('array_append', db.Sequelize.col('follower'), friendId) }, { where: { id } },
+      )
+      await db.Account.update(
+        { following: db.Sequelize.fn('array_append', db.Sequelize.col('following'), id) }, { where: { id: friendId } }
+      )
+      resolve({
+        error: 1,
+        msg: 'follow success'
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+
+//search for name
+const searchNameService = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Account.findAll({
+        where: { name },
+        raw: true
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
 module.exports = {
   register: register,
   login: login,
-  getUserIds: getUserIds
-
+  getUserIds: getUserIds,
+  addFrServices: addFrServices,
+  searchNameService: searchNameService
 }
