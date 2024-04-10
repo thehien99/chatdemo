@@ -12,7 +12,7 @@ let app = express()
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 app.use(cors({
-  origin: 'http://localhost:5173/',
+  origin: 'true',
 }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
