@@ -15,7 +15,8 @@ let accountRouter = (app) => {
   router.get('/api/search', accountController.searchName)
 
 
-  //get following and follower
+  //get following and follower of userId
+  router.get('/api/getFollows', accountController.getFollows)
 
   return app.use('/', router)
 }

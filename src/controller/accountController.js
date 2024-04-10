@@ -67,10 +67,27 @@ const searchName = async (req, res) => {
   }
 }
 
+const getFollows = async (req, res) => {
+  const { id } = req.query.id
+  console.log('controller', req.query.id);
+  try {
+    if (id === "") {
+      return res.status(400).json({
+        msg: 'Dont have userId'
+      })
+    }
+    const response = await accountServices.getFollow(req.query.id)
+    return res.status(200).json(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   register: register,
   login: login,
   getUserId: getUserId,
   addFr: addFr,
-  searchName: searchName
+  searchName: searchName,
+  getFollows: getFollows
 }

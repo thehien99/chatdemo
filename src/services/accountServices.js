@@ -128,10 +128,30 @@ const searchNameService = (name) => {
   })
 }
 
+const getFollow = (id) => {
+  console.log('services', id);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await db.Account.findOne({
+        where: { id },
+        raw: true,
+        attributes: {
+          exclude: ['password', 'following', 'follower']
+        }
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+
 module.exports = {
   register: register,
   login: login,
   getUserIds: getUserIds,
   addFrServices: addFrServices,
-  searchNameService: searchNameService
+  searchNameService: searchNameService,
+  getFollow: getFollow
 }
