@@ -116,7 +116,7 @@ const addFrServices = ({ friendId, id }) => {
             { follower: db.Sequelize.fn('array_append', db.Sequelize.col('follower'), friendId) }, { where: { id } },
           )
           await db.Account.update(
-            { follower: db.Sequelize.fn('array_append', db.Sequelize.col('follower'), id) }, { where: { id: friendId } }
+            { following: db.Sequelize.fn('array_append', db.Sequelize.col('following'), id) }, { where: { id: friendId } }
           )
           resolve({
             msg: 'AddFriend Success'
