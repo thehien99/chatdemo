@@ -106,7 +106,7 @@ const addFrServices = ({ friendId, id }) => {
       })
 
       loop.forEach(async element => {
-        const trueOrFalse = element.includes(friendId)
+        const trueOrFalse = element?.includes(friendId)
         if (trueOrFalse === true) {
           resolve({
             msg: 'Bạn đã có bạn bè với người này rồi'
@@ -116,7 +116,7 @@ const addFrServices = ({ friendId, id }) => {
             { follower: db.Sequelize.fn('array_append', db.Sequelize.col('follower'), id) }, { where: { id: friendId } },
           )
           await db.Account.update(
-            { following: db.Sequelize.fn('array_append', db.Sequelize.col('following'), friendId) }, { where: { id } }
+            { follower: db.Sequelize.fn('array_append', db.Sequelize.col('follower'), friendId) }, { where: { id } }
           )
           resolve({
             msg: 'AddFriend Success'
