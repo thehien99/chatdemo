@@ -54,8 +54,6 @@ const newMessages = ({ conversationId, senderId, messageText, id }) => {
         defaults: {
           id: v4(),
           conversationId: conversationId,
-          senderId: [senderId],
-          messageText: [JSON.parse(messageText)]
         }
       })
       await db.Messenger.update({
