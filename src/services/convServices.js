@@ -15,10 +15,7 @@ const newConversation = ({ senderId, receiverId }) => {
           id: v4(),
         }
       })
-      resolve({
-        msg: 'Conversation create successfully',
-        newConversation
-      })
+      resolve(newConversation)
     } catch (error) {
       reject(error)
     }
@@ -89,10 +86,25 @@ const MessId = (conversationId) => {
   })
 }
 
+const getMessUser = ({ conversationId, senderId }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const findIdConv = await db.Messenger.findAll({
+        where: { conversationId },
+        attributes: ['senderId', 'messageText']
+      })
+
+      resolve(findIdConv)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
 
 module.exports = {
   newConversation: newConversation,
   getUserId: getUserId,
   newMessages: newMessages,
   MessId: MessId,
+  getMessUser: getMessUser
 }

@@ -4,6 +4,11 @@ const convServices = require("../services/convServices")
 const convMessenger = async (req, res) => {
   const { senderId, receiverId } = req.body
   try {
+    if (senderId || receiverId === "") {
+      return res.status(500).json({
+        msg: 'Lỗi'
+      })
+    }
     const response = await convServices.newConversation(req.body)
     return res.status(200).json(response)
   } catch (error) {
@@ -43,7 +48,15 @@ const getMessId = async (req, res) => {
 }
 
 
-
+const getMessOfUser = async (req, res) => {
+  const { conversationId, senderId } = req.query
+  try {
+    const response = await convServices.getMessUser(req.query)
+    return res.status(200).json(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 
@@ -52,4 +65,5 @@ module.exports = {
   getUserIdConv: getUserIdConv,
   newMessage: newMessage,
   getMessId: getMessId,
+  getMessOfUser: getMessOfUser
 }
