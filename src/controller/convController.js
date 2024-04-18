@@ -4,11 +4,6 @@ const convServices = require("../services/convServices")
 const convMessenger = async (req, res) => {
   const { senderId, receiverId } = req.body
   try {
-    if (senderId || receiverId === "") {
-      return res.status(500).json({
-        msg: 'Lỗi'
-      })
-    }
     const response = await convServices.newConversation(req.body)
     return res.status(200).json(response)
   } catch (error) {
