@@ -61,7 +61,7 @@ const newMessages = ({ conversationId, senderId, messageText, id }) => {
         senderId: db.Sequelize.fn('array_append', db.Sequelize.col('senderId'), senderId)
       }, { where: { conversationId } })
       await db.Messenger.update({
-        messageText: db.Sequelize.fn('array_append', db.Sequelize.col('messageText'), JSON.parse(messageText))
+        messageText: db.Sequelize.fn('array_append', db.Sequelize.col('messageText'), (messageText))
       }, { where: { conversationId } })
       resolve({
         err: 1,
