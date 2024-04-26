@@ -2,7 +2,7 @@ const convServices = require("../services/convServices")
 
 
 const convMessenger = async (req, res) => {
-  const { senderId, receiverId } = req.body
+  const { senderId } = req.body
   try {
     const response = await convServices.newConversation(req.body)
     return res.status(200).json(response)

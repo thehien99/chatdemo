@@ -4,12 +4,12 @@ const { Op } = require('sequelize');
 
 
 //create conversation
-const newConversation = ({ senderId, receiverId }) => {
+const newConversation = ({ senderId }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const newConversation = await db.Conversation.findOrCreate({
         where: {
-          members: [senderId, receiverId]
+          members: [senderId]
         },
         defaults: {
           id: v4(),
