@@ -1,18 +1,22 @@
 const db = require("../models")
 const { v4 } = require('uuid')
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 
 
 //create conversation
-const newConversation = ({ senderId }) => {
+const newConversation = ({ senderId, receiverId }) => {
+  console.log(senderId, receiverId);
   return new Promise(async (resolve, reject) => {
     try {
       const newConversation = await db.Conversation.findOrCreate({
         where: {
-          members: [senderId]
+          members: {
+            [Op.contains]: [senderId, receiverId]
+          }
         },
         defaults: {
           id: v4(),
+          members: [senderId, receiverId]
         }
       })
       resolve(newConversation)
