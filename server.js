@@ -20,6 +20,7 @@ socketIo.on("connection", (socket) => {
   console.log("New client connected" + socket.id);
 
   socket.on('sendMessage', function (data) {
+    console.log(data);
     socketIo.emit('recieveMessage', { data })
   })
 
