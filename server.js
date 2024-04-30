@@ -13,7 +13,7 @@ const server = http.createServer(app);
 //socketio
 const socketIo = require("socket.io")(server, {
   cors: {
-    origin: "https://chatdemo-fe.vercel.app/",
+    origin: "*",
   }
 })
 socketIo.on("connection", (socket) => {
